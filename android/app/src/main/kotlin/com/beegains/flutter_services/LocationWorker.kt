@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import java.util.concurrent.TimeUnit
 
 
-class LocationWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
+class LocationWorker(context: Context, workerParams: WorkerParameters?) : Worker(context, workerParams!!) {
     var ctx = context;
     private val REQUEST_EXTERNAL_STORAGE = 1
     private val PERMISSIONS_STORAGE = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -32,6 +32,7 @@ class LocationWorker(context: Context, workerParams: WorkerParameters) : Worker(
 
     override fun doWork(): Result {
         return try {
+            Log.e("name",MainActivity.name);
             locationManager = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
                 // Do something for lollipop and above versions

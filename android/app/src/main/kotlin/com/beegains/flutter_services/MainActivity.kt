@@ -13,7 +13,9 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity: FlutterActivity() {
      val CHANNEL = "flutter.native/helper"
-
+    companion object{
+        var name = ""
+    }
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine);
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
@@ -32,6 +34,7 @@ class MainActivity: FlutterActivity() {
     }
 
     fun startWork(){
+        name = "ramzan"
         val locationWorker = OneTimeWorkRequest.Builder(LocationWorker::class.java).setInitialDelay(3, TimeUnit.SECONDS).addTag("LocationFetching").build()
         WorkManager.getInstance().enqueue(locationWorker)
 
